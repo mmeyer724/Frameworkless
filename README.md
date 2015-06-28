@@ -1,7 +1,7 @@
 # Frameworkless
 Blog post: https://medium.com/@mmeyer/frameworkless-or-how-i-use-php-bf0b119536ad
 
-Frameworkless is a simple example of how you can use just a few composer packages to create an awesomely-simple diy micro-framework. Check out the code for usage examples, everything is extremely simply and easy to understand.
+Frameworkless is a simple example of how you can use just a few composer packages to create an awesomely-simple diy micro-framework. Check out the code for usage examples, everything is extremely simple and easy to understand.
 
 ## Using Twig
 If you're not just serving up JSON and raw responses, you might want to check out Twig. To use it, run: "composer require twig/twig". Then, inside of app.php, add:
