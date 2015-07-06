@@ -33,9 +33,14 @@ Then edit your ``bootstrap/app.php`` to pass spot as a container.
 
 ```php
 $db = new \Spot\Config();
-$db->addConnection("mysql", ['dbname' => getenv('DB_NAME'), 'user' => getenv('DB_USER'), 'password' => getenv('D$
+$db->addConnection('mysql', [
+    'dbname' => getenv('DB_NAME'),
+    'user' => getenv('DB_USER'),
+    'password' => getenv('DB_PASS'),
+    'host' => getenv('DB_HOST')
+]);
 
-$container->add("\Spot\Locator")
+$container->add('\Spot\Locator')
     ->withArgument($db);
 ```
 Then you can create models in src, these will be autoload by composer can be accessed from your controllers. ``src/Models/Posts.php``
