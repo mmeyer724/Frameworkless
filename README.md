@@ -23,13 +23,13 @@ This will tell the container to inject a Twig_Environment instance to your contr
 return new Response($this->twig->render('page.html.twig', $data));
 ````
 ## Spot (ORM)
-If you'd like to use an ORM with frameworkless instead of PDO you can.
+If you'd like to use an ORM with frameworkless instead PDO, it's easy to add Spot:
 
 ```
 composer require vlucas/spot2
 ```
 
-Then edit your ``bootstrap/app.php`` to pass spot as a container.
+from here, edit ``bootstrap/app.php`` and add spot to the container:
 
 ```php
 $db = new \Spot\Config();
@@ -43,7 +43,7 @@ $db->addConnection('mysql', [
 $container->add('\Spot\Locator')
     ->withArgument($db);
 ```
-Then you can create models in src, these will be autoload by composer can be accessed from your controllers. ``src/Models/Posts.php``
+From here you can add models to any directory under src/, which will be autoloaded by composer. For example ( ``src/Models/Posts.php``): 
 
 ```php
 
@@ -56,7 +56,7 @@ class Posts extends \Spot\Entity
 
 ```
 
-Then you can collect spot in your controllers.
+And finally from your controller:
 
 ```php
     private $spot;
