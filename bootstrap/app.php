@@ -69,6 +69,7 @@ switch ($route_info[0]) {
 
         $response = $object->$method($vars);
         if ($response instanceof Response) {
+            $response->prepare(Request::createFromGlobals());
             $response->send();
         }
         break;
