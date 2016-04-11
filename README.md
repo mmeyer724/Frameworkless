@@ -11,22 +11,22 @@ This repo is intended to be a starting point for others looking to go down the s
 ## What's included?
 I spent some time picking out packages, preferring those used by existing large applications or frameworks. Here is what's included, in no particular order:
 
-**[nikic/fast-route](https://github.com/nikic/FastRoute)** Popular routing library used by frameworks like [Slim](http://www.slimframework.com).
-**[filp/whoops](https://github.com/filp/whoops)** An impressively stunning error handler, it makes errors hurt slightly less.
-**[symfony/http-foundation](https://github.com/symfony/http-foundation)** Makes handling requests and returning responses much easier.
-**[league/container](https://github.com/thephpleague/container)** Dependency injection container, share common objects (like a database connection) in a cleaner way.
-**[twig/twig](https://github.com/twigphp/Twig)** The dependable templating engine used in Symfony.
-**[vlucas/phpdotenv](https://github.com/vlucas/phpdotenv)** Please don't push your credentials to GitHub.
+**[nikic/fast-route](https://github.com/nikic/FastRoute)** Popular routing library used by frameworks like [Slim](http://www.slimframework.com).  
+**[filp/whoops](https://github.com/filp/whoops)** An impressively stunning error handler, it makes errors hurt slightly less.  
+**[symfony/http-foundation](https://github.com/symfony/http-foundation)** Makes handling requests and returning responses much easier.  
+**[league/container](https://github.com/thephpleague/container)** Dependency injection container, share common objects (like a database connection) in a cleaner way.  
+**[twig/twig](https://github.com/twigphp/Twig)** The dependable templating engine used in Symfony.  
+**[vlucas/phpdotenv](https://github.com/vlucas/phpdotenv)** Please don't push your credentials to GitHub.  
 
 
 ## Getting started
 I've included a Vagrantfile which should make getting setup extremely simple. I assume [composer](https://getcomposer.org) is installed.
 
-Step 1. Install [Vagrant](https://www.vagrantup.com)
-Step 2. Clone this repository
-Step 3. cd into the repository
-Step 3. ```composer install```
-Step 4. ```cp .env.example .env```
+Step 1. Install [Vagrant](https://www.vagrantup.com)  
+Step 2. Clone this repository  
+Step 3. cd into the repository  
+Step 3. ```composer install```  
+Step 4. ```cp .env.example .env```  
 Step 5. ```vagrant up```
 
 From here, you should be able to browse to http://localhost:8080/. The website is served with NGINX and PHP 7.
@@ -35,7 +35,7 @@ From here, you should be able to browse to http://localhost:8080/. The website i
 ## Batteries not included
 I've intentionally made this project as simplistic as possible. A lot of things are left up to you to design and implement. On the plus side, you won't have to remove much boilerplate.
 
-To make some people's lives easier, below you will find instructions on how to implement a few things. 
+Below you will find instructions on how to implement a few things, feel free to contribute more examples :). 
 
 
 ### PDO (database)
@@ -133,5 +133,5 @@ And finally from your controller:
 ## Contributing
 Submit a pull request :) I'll be friendly
 
-Thanks to **@waxim** for contributing the Spot example
+Thanks to **@waxim** for contributing the Spot example  
 Thanks to **@jaakkytt** for clearing up part of this readme
