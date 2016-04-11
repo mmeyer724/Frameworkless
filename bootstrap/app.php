@@ -1,8 +1,11 @@
 <?php
 use FastRoute\Dispatcher;
 use League\Container\Container;
+use League\Container\ReflectionContainer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Whoops\Handler\PrettyPageHandler;
+use Whoops\Run;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -17,12 +20,12 @@ $dotenv->load();
 /**
  * Error handler
  */
-$whoops = new \Whoops\Run;
+$whoops = new Run;
 if (getenv('MODE') === 'dev') {
-    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+    $whoops->pushHandler(new PrettyPageHandler);
 } else {
     $whoops->pushHandler(function () {
-        Response::create('Something broke', Response::HTTP_INTERNAL_SERVER_ERROR)->send();
+        Response::create('Uh oh, something broke internally.', Response::HTTP_INTERNAL_SERVER_ERROR)->send();
     });
 }
 $whoops->register();
@@ -32,10 +35,11 @@ $whoops->register();
  * Container setup
  */
 $container = new Container();
-$container->add('PDO')
-    ->withArgument(getenv('DB_CONN'))
-    ->withArgument(getenv('DB_USER'))
-    ->withArgument(getenv('DB_PASS'));
+$container->add('Twig_Environment')
+    ->withArgument(new Twig_Loader_Filesystem(__DIR__ . '/../views/'));
+$container->delegate(
+    new ReflectionContainer() // Auto-wiring
+);
 
 
 /**

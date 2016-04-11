@@ -1,0 +1,17 @@
+{% extends 'base.html.twig'  %}
+
+{% block title %}
+    Welcome
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% if name is defined %}
+            <h1>Hello {{ name }} <span class="glyphicon glyphicon-hand-left"></span></h1>
+            <p>I realize this is a ridiculously simple example :)</p>
+        {% else %}
+            <h1>Try providing me your name</h1>
+            <h4>For example: http://localhost/Michael</h4>
+        {% endif %}
+    </div>
+{% endblock %}
