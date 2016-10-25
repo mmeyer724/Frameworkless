@@ -14,7 +14,7 @@ sudo apt-get install -y nginx php7.0-fpm
 # Symlink the nginx config and restart nginx
 sudo rm -f /etc/nginx/sites-available/*
 sudo rm -f /etc/nginx/sites-enabled/*
-sudo ln -s /opt/frameworkless/nginx.conf /etc/nginx/sites-enabled/frameworkless
+sudo ln -s /opt/frameworkless/config/nginx/vagrant.conf /etc/nginx/sites-enabled/frameworkless
 sudo service nginx restart
 SCRIPT
 

@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  application:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./config/nginx/docker.conf:/etc/nginx/sites-enabled/default
+      - .:/opt/frameworkless
+    ports:
+      - 80
+
