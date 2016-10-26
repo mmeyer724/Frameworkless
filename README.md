@@ -32,7 +32,7 @@ Step 5. ```vagrant up```
 From here, you should be able to browse to http://localhost:8080/. The website is served with NGINX and PHP 7.
 
 ### Getting started with Docker
-If you're a Docker user rather than Vagrant, there is a `docker-compose set up provided`.
+If you're a Docker user rather than Vagrant, there is a `docker-compose` set up provided.
 
 Follow the instructions above and replace "`vagrant up`" with "`docker-compose up`"
 
