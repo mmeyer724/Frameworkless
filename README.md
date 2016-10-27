@@ -31,6 +31,12 @@ Step 5. ```vagrant up```
 
 From here, you should be able to browse to http://localhost:8080/. The website is served with NGINX and PHP 7.
 
+### Getting started with Docker
+If you're a Docker user rather than Vagrant, there is a `docker-compose` set up provided.
+
+Follow the instructions above and replace "`vagrant up`" with "`docker-compose up`"
+
+To find the port run `docker-compose port application 80` which will return the public port the application is available under.
 
 ## Batteries not included
 I've intentionally made this project as simplistic as possible. A lot of things are left up to you to design and implement. On the plus side, you won't have to remove much boilerplate.
