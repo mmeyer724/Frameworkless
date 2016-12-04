@@ -1,8 +1,18 @@
 # Frameworkless
-An admittedly overly simplistic example of combining popular composer packages into your own pseudo-framework. 
+An admittedly overly simplistic example of combining a few popular packages into your own micro-framework.
 
 
 ## Why?
+
+**Education.**
+
+I do not recommend building your own framework unless you have a very compelling reason to do so.
+Instead,use a popular & well-supported framework like [Symfony](http://symfony.com), [Slim](https://www.slimframework.com), or [Laravel](http://laravel.com).
+
+Use [Symfony](http://symfony.com), [Slim Framework](https://www.slimframework.com), or [Laravel](http://laravel.com) unless you have a compelling reason to build-your-own framework.
+
+
+This project aims to educate 
 For certain applications, a large framework like Symfony or Laravel isn't a great fit. For example, very simple websites lacking authentication, pagination, (many) forms and the like.
  
 This repo is intended to be a starting point for others looking to go down the same route that I did. **I do not recommend this route for large projects**, as having a more defined structure and clear rules will help with organization and teamwork. However, being able to understand (and control) every part of your application is extremely nice. I also like to believe frameworkless is faster than other frameworks, but I haven't ran any benchmarks yet. 
