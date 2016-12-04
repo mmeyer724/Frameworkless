@@ -1,22 +1,21 @@
 <?php
 namespace Frameworkless\Controllers;
 
-use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Twig_Environment;
 
 /**
- * Handles all requests to /.
+ * Handles all requests to /greet.
  *
  * @author Michael Meyer <michael@meyer.io>
  */
-class IndexController
+class GreetController
 {
     /** @var Twig_Environment */
     private $twig;
 
     /**
-     * IndexController, constructed by the container
+     * GreetController, constructed by the container
      *
      * @param Twig_Environment $twig
      */
@@ -26,22 +25,18 @@ class IndexController
     }
 
     /**
-     * Index page
+     * Name reversing thing
      *
+     * @param array $routeParams
      * @return Response
      */
-    public function index()
+    public function greet($routeParams)
     {
-        return new Response($this->twig->render('pages/index.html.twig'));
-    }
-
-    /**
-     * Throw an exception (for testing the error handler)
-     *
-     * @throws Exception
-     */
-    public function exception()
-    {
-        throw new Exception('Test exception');
+        $response = new Response(
+            $this->twig->render('pages/greet.html.twig', [
+                'name' => strrev($routeParams['name'])
+            ])
+        );
+        return $response;
     }
 }

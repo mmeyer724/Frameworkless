@@ -1,4 +1,5 @@
 <?php
+
 use FastRoute\Dispatcher;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
@@ -10,39 +11,66 @@ use Whoops\Run;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 
-/**
- * Dotenv setup
+/*
+ * Request instance (use this instead of $_GET, $_POST, etc).
  */
+$request = Request::createFromGlobals();
+
+
+/*
+ * Dotenv initialization
+ */
+if (file_exists(__DIR__ . '/../.env') !== true) {
+    Response::create('Missing .env file (please copy .env.example).', Response::HTTP_INTERNAL_SERVER_ERROR)
+        ->prepare($request)
+        ->send();
+    return;
+}
 $dotenv = new Dotenv\Dotenv(__DIR__ . '/../');
 $dotenv->load();
 
 
-/**
+/*
  * Error handler
  */
 $whoops = new Run;
 if (getenv('MODE') === 'dev') {
-    $whoops->pushHandler(new PrettyPageHandler);
+    $whoops->pushHandler(
+        new PrettyPageHandler()
+    );
 } else {
-    $whoops->pushHandler(function () {
-        Response::create('Uh oh, something broke internally.', Response::HTTP_INTERNAL_SERVER_ERROR)->send();
-    });
+    $whoops->pushHandler(
+        // Using the pretty error handler in production is likely a bad idea.
+        // Instead respond with a generic error message.
+        function () use ($request) {
+            Response::create('An internal server error has occurred.', Response::HTTP_INTERNAL_SERVER_ERROR)
+                ->prepare($request)
+                ->send();
+        }
+    );
 }
 $whoops->register();
 
 
-/**
+/*
  * Container setup
  */
 $container = new Container();
-$container->add('Twig_Environment')
-    ->withArgument(new Twig_Loader_Filesystem(__DIR__ . '/../views/'));
-$container->delegate(
-    new ReflectionContainer() // Auto-wiring
-);
+$container
+    ->add('Twig_Environment')
+    ->withArgument(
+        // Our twig templates are stored inside of the views directory.
+        new Twig_Loader_Filesystem(__DIR__ . '/../views/')
+    );
+$container
+    ->delegate(
+        // Auto-wiring based on constructor typehints.
+        // http://container.thephpleague.com/auto-wiring
+        new ReflectionContainer()
+    );
 
 
-/**
+/*
  * Routes
  */
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
@@ -53,28 +81,49 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
 });
 
 
-/**
+/*
  * Dispatch
  */
-$request = Request::createFromGlobals();
-$route_info = $dispatcher->dispatch($request->getMethod(), $request->getPathInfo());
-switch ($route_info[0]) {
+$routeInfo = $dispatcher->dispatch($request->getMethod(), $request->getPathInfo());
+switch ($routeInfo[0]) {
     case Dispatcher::NOT_FOUND:
-        Response::create("404 Not Found", Response::HTTP_NOT_FOUND)->send();
+        // No matching route was found.
+        Response::create("404 Not Found", Response::HTTP_NOT_FOUND)
+            ->prepare($request)
+            ->send();
         break;
     case Dispatcher::METHOD_NOT_ALLOWED:
-        Response::create("405 Method Not Allowed", Response::HTTP_METHOD_NOT_ALLOWED)->send();
+        // A matching route was found, but the wrong HTTP method was used.
+        Response::create("405 Method Not Allowed", Response::HTTP_METHOD_NOT_ALLOWED)
+            ->prepare($request)
+            ->send();
         break;
     case Dispatcher::FOUND:
-        $class_name = $route_info[1][0];
-        $method = $route_info[1][1];
-        $vars = $route_info[2];
-        $object = $container->get($class_name);
+        // Fully qualified class name of the controller
+        $fqcn = $routeInfo[1][0];
+        // Controller method responsible for handling the request
+        $routeMethod = $routeInfo[1][1];
+        // Route parameters (ex. /products/{category}/{id})
+        $routeParams = $routeInfo[2];
 
-        $response = $object->$method($vars);
+        // Obtain an instance of route's controller
+        // Resolves constructor dependencies using the container
+        $controller = $container->get($fqcn);
+
+        // Generate a response by invoking the appropriate route method in the controller
+        $response = $controller->$routeMethod($routeParams);
         if ($response instanceof Response) {
-            $response->prepare(Request::createFromGlobals());
-            $response->send();
+            // Send the generated response back to the user
+            $response
+                ->prepare($request)
+                ->send();
         }
         break;
+    default:
+        // According to the dispatch(..) method's documentation this shouldn't happen.
+        // But it's here anyways just to cover all of our bases.
+        Response::create('Received unexpected response from dispatcher.', Response::HTTP_INTERNAL_SERVER_ERROR)
+            ->prepare($request)
+            ->send();
+        return;
 }

@@ -2,13 +2,13 @@
     "name": "mmeyer/frameworkless",
     "description": "Project skeleton",
     "require": {
-        "nikic/fast-route": "^0.8.0",
+        "nikic/fast-route": "^1.0",
         "league/container": "^2.2",
-        "symfony/http-foundation": "^3.0",
-        "symfony/var-dumper": "^3.0",
+        "symfony/http-foundation": "^3.2",
+        "symfony/var-dumper": "^3.2",
         "filp/whoops": "^2.1",
-        "vlucas/phpdotenv": "^2.2",
-        "twig/twig": "^1.24"
+        "vlucas/phpdotenv": "^2.4",
+        "twig/twig": "^1.28"
     },
     "autoload": {
         "psr-4": {
