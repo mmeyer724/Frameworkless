@@ -9,7 +9,7 @@ An admittedly overly simplistic example of combining a few popular packages into
 I do not recommend building your own framework unless you have a very compelling reason to do so.
 Instead,use a popular & well-supported framework like [Symfony](http://symfony.com), [Slim](https://www.slimframework.com), or [Laravel](http://laravel.com).
 
-### What's included?
+#### What's included?
 I spent some time picking out packages, preferring those used by existing large applications or frameworks. Here is what's included, in no particular order:
 
 * **[nikic/fast-route](https://github.com/nikic/FastRoute)**
@@ -164,6 +164,9 @@ public function get()
 ## Contributing
 Submit a pull request :) I'll be friendly
 
-Thanks to **@waxim** for contributing the Spot example  
+
+Thanks to **@waxim** for contributing the Spot example
+
 Thanks to **@jaakkytt** for clearing up part of this readme
+
 Thanks to **@Luciam91** for contributing Docker support
