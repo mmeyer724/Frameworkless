@@ -9,50 +9,48 @@ An admittedly overly simplistic example of combining a few popular packages into
 I do not recommend building your own framework unless you have a very compelling reason to do so.
 Instead,use a popular & well-supported framework like [Symfony](http://symfony.com), [Slim](https://www.slimframework.com), or [Laravel](http://laravel.com).
 
-Use [Symfony](http://symfony.com), [Slim Framework](https://www.slimframework.com), or [Laravel](http://laravel.com) unless you have a compelling reason to build-your-own framework.
-
-
-This project aims to educate 
-For certain applications, a large framework like Symfony or Laravel isn't a great fit. For example, very simple websites lacking authentication, pagination, (many) forms and the like.
- 
-This repo is intended to be a starting point for others looking to go down the same route that I did. **I do not recommend this route for large projects**, as having a more defined structure and clear rules will help with organization and teamwork. However, being able to understand (and control) every part of your application is extremely nice. I also like to believe frameworkless is faster than other frameworks, but I haven't ran any benchmarks yet. 
-
-
-## What's included?
+### What's included?
 I spent some time picking out packages, preferring those used by existing large applications or frameworks. Here is what's included, in no particular order:
 
-**[nikic/fast-route](https://github.com/nikic/FastRoute)** Popular routing library used by frameworks like [Slim](http://www.slimframework.com).  
-**[filp/whoops](https://github.com/filp/whoops)** An impressively stunning error handler, it makes errors hurt slightly less.  
-**[symfony/http-foundation](https://github.com/symfony/http-foundation)** Makes handling requests and returning responses much easier.  
-**[league/container](https://github.com/thephpleague/container)** Dependency injection container, share common objects (like a database connection) in a cleaner way.  
-**[twig/twig](https://github.com/twigphp/Twig)** The dependable templating engine used in Symfony.  
-**[vlucas/phpdotenv](https://github.com/vlucas/phpdotenv)** Please don't push your credentials to GitHub.  
+* **[nikic/fast-route](https://github.com/nikic/FastRoute)**
+  * Popular routing library used by frameworks like [Slim](http://www.slimframework.com).  
+* **[filp/whoops](https://github.com/filp/whoops)**
+  * Stunning error handler, it makes errors sting a bit less.  
+* **[symfony/http-foundation](https://github.com/symfony/http-foundation)**
+  * Simplifies request & reponse handling.
+* **[league/container](https://github.com/thephpleague/container)**
+  * Dependency injection container, for sharing common resources (like a database connection).
+* **[twig/twig](https://github.com/twigphp/Twig)**
+  * The rock solid templating engine used by Symfony and many others.
+* **[vlucas/phpdotenv](https://github.com/vlucas/phpdotenv)**
+  * Please don't push your database credentials to GitHub.  
 
 
-## Getting started
-I've included a Vagrantfile which should make getting setup extremely simple. I assume [composer](https://getcomposer.org) is installed.
+## Getting started with Vagrant
+I've included a Vagrantfile which should make getting setup extremely simple. I assume [composer](https://getcomposer.org) is already installed.
 
-Step 1. Install [Vagrant](https://www.vagrantup.com)  
-Step 2. Clone this repository  
-Step 3. cd into the repository  
-Step 3. ```composer install```  
-Step 4. ```cp .env.example .env```  
-Step 5. ```vagrant up```
+1. Install [Vagrant](https://www.vagrantup.com) and [VirtualBox](https://www.virtualbox.org)
+2. `git clone` this repository  
+3. `cd` into the cloned repository  
+3. `composer install` 
+4. `cp .env.example .env`  
+5. `vagrant up`
 
-From here, you should be able to browse to http://localhost:8080/. The website is served with NGINX and PHP 7.
+From here, you should be able to access http://localhost:8080/. This website is served using NGINX & PHP 7.
 
-### Getting started with Docker
+
+## Getting started with Docker
 If you're a Docker user rather than Vagrant, there is a `docker-compose` set up provided.
 
 Follow the instructions above and replace "`vagrant up`" with "`docker-compose up`"
 
 To find the port run `docker-compose port application 80` which will return the public port the application is available under.
 
+
 ## Batteries not included
 I've intentionally made this project as simplistic as possible. A lot of things are left up to you to design and implement. On the plus side, you won't have to remove much boilerplate.
 
 Below you will find instructions on how to implement a few things, feel free to contribute more examples :). 
-
 
 ### PDO (database)
 Edit ``bootstrap/app.php`` and add the following:
@@ -87,7 +85,6 @@ Now, from a controller:
         return new JsonResponse($handle->fetchAll(PDO::FETCH_ASSOC));
     }
 ```
-
 
 ### Spot (database, ORM)
 ```
