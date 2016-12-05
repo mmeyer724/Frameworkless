@@ -6,8 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./config/nginx/docker.conf:/etc/nginx/sites-enabled/default
+      - ./misc/config/nginx/docker.conf:/etc/nginx/sites-enabled/default
       - .:/opt/frameworkless
     ports:
       - 80
-
